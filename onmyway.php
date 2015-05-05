@@ -10,7 +10,6 @@
         //Set auth variables
         require('auth.php');
         
-        
         //Get postcode and phone number
         $userX = (string)$_GET["userX"];
         $userY = (string)$_GET["userY"];
