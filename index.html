@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>On My Way - Powered by Esri and Twilio</title>
+		<meta name="description" content="Simple ideas for enhancing text input interactions" />
+		<meta name="keywords" content="input, text, effect, focus, transition, interaction, inspiration, web design" />
+		<meta name="author" content="Codrops" />
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+        <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/esri-twilio.css" />
+		<link rel="stylesheet" type="text/css" href="css/inputs.css" />
+
+        <link href="//jsdev.arcgis.com/4.0beta1/esri/css/jsapi.css" rel="stylesheet" type="text/css">
+		<!--[if IE]>
+  		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+ 
+        <div class="logos">
+            <p class="power">Powered by: </p>
+            <img class="logo" src="img/twilio.png" title="Twilio - SMS Service">
+            <img class="logo" src="img/esri.png" title="Esri - ArcGIS API">
+            <img class="logo" src="img/html5.png" title="HTML5 Geolocation">
+        </div>
+		<div class="container" id="arcgis">
+			<section class="content bgcolor-5">
+                
+				<span class="input input--minoru" id="userinput">
+                    <h1 class="title">On My Way!</h1>
+                    <form id="geocode">
+                        <input id="postCode" class="input__field input__field--yoko" type="text" id="input-16" autocomplete="off" />
+                        <label class="input__label input__label--yoko" for="input-16">
+                            <span class="input__label-content input__label-content--yoko">Friend's Postcode</span>
+                        </label>
+                        <input id="phoneNum" class="input__field input__field--yoko" type="text" id="input-16" autocomplete="off" />
+                        <label class="input__label input__label--yoko" for="input-16">
+                            <span class="input__label-content input__label-content--yoko">Friend's Mobile Number</span>
+                        </label>
+                    </form>
+                    <input class="go" type="button" value="Driving!" id="driving">
+                    <input class="go" type="button" value="Walking!" id="walking">
+				</span>
+			</section>
+		</div><!-- /container -->
+        	
+        <script src="js/modernizr.js"></script>
+		<script src="js/classie.js"></script>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="http://js.arcgis.com/3.13compact"></script>
+        <script src="js/onmyway.js"></script>
+        
+       
+	</body>
+</html>
