@@ -24,7 +24,7 @@ html, body {
 	font-weight: 500;
 	font-size: 1.05em;
 	font-family: 'Raleway', Arial, sans-serif;
-    background-image: url("../img/contour.jpg");
+    background-image: url("../img/background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     color: rgba(255, 255, 230, 1) !important;
