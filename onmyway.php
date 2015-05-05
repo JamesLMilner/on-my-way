@@ -88,7 +88,6 @@
                 $driveRoute = request($driveRouteURL);
                 $routeDriveTime = (string)$driveRoute->directions[0]->summary->totalTime;
                 $routeLength = (string)$driveRoute->directions[0]->summary->totalLength; //Length in KM
-                $roundedDriveTime = round($routeDriveTime, 0, PHP_ROUND_HALF_UP);  
                 $messageText = "Your friend is on their way, they are driving and currently " . round($routeLength, 0, PHP_ROUND_HALF_UP) . 
                                 "km away (along the route network). They will be with you in about " . round($routeDriveTime, 0, PHP_ROUND_HALF_UP) .
                                 " minutes.";
