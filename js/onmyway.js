@@ -1,17 +1,20 @@
             
     // Hovering
-    $(".go, #retry").hover( 
-        function() {
-            var currentFontSize = parseInt( $(this).css("font-size") );
-            $(this).css("font-size", currentFontSize + 2);
-            $(this).css("background-color", "rgba(192, 124, 124, 0.42)");
-        },
-        function() {
-            var exitFontSize = parseInt( $(this).css("font-size") ) - 2;
-            $(this).css("font-size", exitFontSize);
-            $(this).css("background-color", "rgba(200, 200, 200, 0.42)");
-        }
-    );
+    function hoverButtons() {
+        $(".go").hover( 
+            function() {
+                var currentFontSize = parseInt( $(this).css("font-size") );
+                $(this).css("font-size", currentFontSize + 2);
+                $(this).css("background-color", "rgba(192, 124, 124, 0.42)");
+            },
+            function() {
+                var exitFontSize = parseInt( $(this).css("font-size") ) - 2;
+                $(this).css("font-size", exitFontSize);
+                $(this).css("background-color", "rgba(200, 200, 200, 0.42)");
+            }
+        );
+    }
+    hoverButtons();
 
     // Click on one of the buttons; driving or walking
     $(".go").click(function(event) {
@@ -63,7 +66,10 @@
                                     eta = new Date(new Date().getTime() + routeDriveTime*60000);
                                     text += "<b>driving</b> so it should take you about <b>" + convertToHours(routeDriveTime);
                                 }
-                                text += " </b> You should arrive around <b>" + eta.toLocaleTimeString() + "</b>. " + "<div id='map'></div> ";
+                                
+                                var goAgain = '<form id="sendform"><input class="go" id="send" type=button value="Send Another!" onClick="history.go()"></form>'
+                                text += " </b> You should arrive around <b>" + eta.toLocaleTimeString() + "</b>. " + goAgain +
+                                        "<div id='map'></div> ";
                                 console.log(text);
                                 $("#userinput").html(text);
                                 generateMap(userX, userY, routePolyline);
@@ -102,6 +108,7 @@
         // Change cursor to normal; finished trying to find route, or error thrown
         function finished() {
             $("body, .content, input, .go, input__label-content").css("cursor", "auto");
+            hoverButtons();
         }
 
         // Check the mode of transport clicked

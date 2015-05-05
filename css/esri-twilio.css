@@ -1,16 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:200,500,700,800);
 
-@font-face {
-	font-weight: normal;
-	font-style: normal;
-	font-family: 'codropsicons';
-	src:url('../fonts/codropsicons/codropsicons.eot');
-	src:url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/codropsicons/codropsicons.woff') format('woff'),
-		url('../fonts/codropsicons/codropsicons.ttf') format('truetype'),
-		url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
-}
-
 *, *:after, *:before { -webkit-box-sizing: border-box; box-sizing: border-box; }
 .clearfix:before, .clearfix:after { content: ''; display: table; }
 .clearfix:after { clear: both; }
@@ -74,9 +63,21 @@ html, body {
     line-height: 64px;
 }
 
+#sendform {
+    text-align: center;
+}
+
+#send {
+    width: 250px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    cursor: pointer !important;
+}
+
 .usermessage {
     padding-top: 10px !important;
-    margin-bottom: 55px !important;
+    margin-bottom: 10px !important;
     font-size: 22px !important;
     text-align: center;
 }
@@ -156,33 +157,6 @@ body .nomargin-bottom {
 	margin-bottom: 0;
 }
 
-
-
-.media-item {
-	display: inline-block;
-	padding: 1em;
-	vertical-align: top;
-	-webkit-transition: color 0.3s;
-	transition: color 0.3s;
-}
-
-.media-item__img {
-	opacity: 0.8;
-	-webkit-transition: opacity 0.3s;
-	transition: opacity 0.3s;
-}
-
-.media-item:hover .media-item__img,
-.media-item:focus .media-item__img {
-	opacity: 1;
-}
-
-.media-item__title {
-	font-size: 0.75em;
-	margin: 0;
-	padding: 0.5em;
-}
-
 @media screen and (max-width: 50em) {
     
     #userinput {
@@ -202,16 +176,26 @@ body .nomargin-bottom {
         padding-bottom: 5px;
     }
     
+    .send {
+        margin-bottom: 5px;
+        margin-top: 5px;
+        padding: 4px;
+    }
     
-    .title {
+    .title, .sent {
         font-size: 28px;
         margin-top: 3px;
         margin-bottom: 3px;
+        line-height: 28px;
     }
     
     .go {
         padding: 5px;
         font-size: 20px;
+    }
+    
+    .usermessage {
+        font-size: 14px !important;
     }
     
     #walking {
