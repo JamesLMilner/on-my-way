@@ -10,6 +10,18 @@
         //Set auth variables
         require('auth.php');
         
+                    
+        function convertToHours($minutes) {
+            $hours = floor($minutes / 60);          
+            $mins = $minutes % 60;
+            if ($hours == 0) {
+                return (string)$minutes + " minutes.";
+            }
+            else {
+                return (string)$hours . " hours and " . (string)$mins . " minutes.";
+            }
+        }
+        
         //Get postcode and phone number
         $userX = (string)$_GET["userX"];
         $userY = (string)$_GET["userY"];
@@ -79,8 +91,7 @@
                 $routeWalkTime = (string)$walkRoute->directions[0]->summary->totalTime;
                 $routeLength = (string)$walkRoute->directions[0]->summary->totalLength; //Length in KM
                 $messageText = "Your friend is on their way, they are walking and currently " . round($routeLength, 0, PHP_ROUND_HALF_UP) .
-                                "km away (along the route network). They will be with you in about " . round($routeWalkTime, 0, PHP_ROUND_HALF_UP) .
-                                " minutes.";
+                                "km away (along the route network). They will be with you in about " . convertToHours($routeWalkTime);
                 $routePolyline = json_encode($walkRoute->routes->features[0]->geometry->paths);
             }
 
@@ -89,11 +100,11 @@
                 $routeDriveTime = (string)$driveRoute->directions[0]->summary->totalTime;
                 $routeLength = (string)$driveRoute->directions[0]->summary->totalLength; //Length in KM
                 $messageText = "Your friend is on their way, they are driving and currently " . round($routeLength, 0, PHP_ROUND_HALF_UP) . 
-                                "km away (along the route network). They will be with you in about " . round($routeDriveTime, 0, PHP_ROUND_HALF_UP) .
-                                " minutes.";
+                                "km away (along the route network). They will be with you in about " . convertToHours($routeDriveTime);
                 $routePolyline = json_encode($driveRoute->routes->features[0]->geometry->paths);
                 
             }
+
 
             $returnData = '{ "routeLength" : "' . $routeLength . 
                           '", "routeWalkTime" :"' . $routeWalkTime .

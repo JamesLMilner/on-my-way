@@ -56,27 +56,26 @@
                                 if (mode == "walking") {
                                     //Create date object and add the difference
                                     eta =  new Date(new Date().getTime() + routeWalkTime*60000);
-                                    text += "<b>walking</b> so it should take you about <b>" + routeWalkTime;
+                                    text += "<b>walking</b> so it should take you about <b>" +  convertToHours(routeWalkTime);
                                 }
                                 if (mode == "driving") {
                                     //Create date object and add the difference
                                     eta = new Date(new Date().getTime() + routeDriveTime*60000);
-                                    text += "<b>driving</b> so it should take you about <b>" + routeDriveTime;
+                                    text += "<b>driving</b> so it should take you about <b>" + convertToHours(routeDriveTime);
                                 }
-                                text += " </b>minutes. You should arrive around <b>" + eta.toLocaleTimeString() + "</b>. " + "<div id='map'></div> ";
+                                text += " </b> You should arrive around <b>" + eta.toLocaleTimeString() + "</b>. " + "<div id='map'></div> ";
                                 console.log(text);
                                 $("#userinput").html(text);
                                 generateMap(userX, userY, routePolyline);
                             }
                             else {
-                                $("#userinput").html("<h1 class='sent'> Sorry there was an error! </h1>");
+                                throwError();
                             }
                             finished();
                         },
                         error: function(error) {
                             console.log("There was an error! ", error);
-                            var refreshButton = '<form><input class="go" id="retry" type=button value="Retry!" onClick="history.go()"></form>'
-                            $("#userinput").html("<h1 class='sent'> Sorry there was an error! </h1><br>" + refreshButton);
+                            throwError();
                             finished();
                         }
                     }); //End of Ajax 
@@ -90,6 +89,11 @@
             
         } // End of check for postcode and number
 
+        function throwError() {
+            var refreshButton = '<form><input class="go" id="retry" type=button value="Retry!" onClick="history.go()"></form>'
+            $("#userinput").html("<h1 class='sent'> Sorry there was an error! </h1><br>" + refreshButton);
+        }
+        
         // Change cursor to waiting; trying to find route
         function waiting() {
             $("body, .content, input, .go, input__label-content").css("cursor", "wait");
@@ -109,7 +113,18 @@
                 return "driving"
             }
         }
-
+        
+        // Convert raw minutes into hours and hinutes
+        function convertToHours(minutes) {
+            var hours = Math.floor( minutes / 60);          
+            var mins = minutes % 60;
+            if (hours == 0) {
+                return String(minutes) + " minutes.";
+            }
+            else {
+                return hours + " hours and " + mins + " minutes.";
+            }
+        }
 
         function generateMap(lon, lat, routeObject) {
              require([  
@@ -130,7 +145,6 @@
                  }); 
 
                  routeMap.on("load", function() {
-
                      var route = { "paths": routeObject , "spatialReference": {"wkid":4326} }; 
                      var routeGeometry = new Polyline(route);
                      var routeSymbol = new SimpleLineSymbol( SimpleLineSymbol.STYLE_LONGDASH, new Color([240,20,20]), 3);
@@ -140,7 +154,4 @@
 
             }); // End of esri require block
         } // End of generateMap
-
-
-
     }); // End of go click

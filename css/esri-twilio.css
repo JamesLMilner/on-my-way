@@ -71,6 +71,7 @@ html, body {
     text-align: center;
     font-family: 'Pacifico', cursive;
     margin-top: 10px;
+    line-height: 64px;
 }
 
 .usermessage {
