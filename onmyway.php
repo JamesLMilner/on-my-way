@@ -5,14 +5,13 @@
 
     function getData() {
         //The Twilio PHP Library
-        require('twilio/Twilio.php'); 
+        require('twilio/Twilio.php');
 
         //Set auth variables
         require('auth.php');
-        
-                    
+
         function convertToHours($minutes) {
-            $hours = floor($minutes / 60);          
+            $hours = floor($minutes / 60);
             $mins = $minutes % 60;
             if ($hours == 0) {
                 return (string)$minutes + " minutes.";
@@ -21,16 +20,16 @@
                 return (string)$hours . " hours and " . (string)$mins . " minutes.";
             }
         }
-        
+
         //Get postcode and phone number
-        $userX = (string)$_GET["userX"];
-        $userY = (string)$_GET["userY"];
-        $postCode = (string)$_GET["postCode"];
-        $phoneNum = (string)$_GET["phoneNum"];
-        $mode = (string)$_GET["mode"];
-        
+        $userX = (string)$_POST["userX"];
+        $userY = (string)$_POST["userY"];
+        $postCode = (string)$_POST["postCode"];
+        $phoneNum = (string)$_POST["phoneNum"];
+        $mode = (string)$_POST["mode"];
+
         $invalidNumbers = array("999", "911", "+999", "+911"); //etc
-        
+
         // Check that they're all valid
         if ($userX && $userY && $postCode && $phoneNum && $mode && in_array($phoneNum, $invalidNumbers) == false) {
 
@@ -79,7 +78,7 @@
             $walkTime = "&directionsTimeAttributeName=WalkTime";
             $walkRouteURL= "http://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve" . $stops . $tokenUrl . $walkTime . "&f=json";
             $driveRouteURL = "http://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World/solve" . $stops . $tokenUrl . "&f=json";
-            
+
             // Create blank strings
             $routeWalkTime = "";
             $routeDriveTime = "";
@@ -99,23 +98,23 @@
                 $driveRoute = request($driveRouteURL);
                 $routeDriveTime = (string)$driveRoute->directions[0]->summary->totalTime;
                 $routeLength = (string)$driveRoute->directions[0]->summary->totalLength; //Length in KM
-                $messageText = "Your friend is on their way, they are driving and currently " . round($routeLength, 0, PHP_ROUND_HALF_UP) . 
+                $messageText = "Your friend is on their way, they are driving and currently " . round($routeLength, 0, PHP_ROUND_HALF_UP) .
                                 "km away (along the route network). They will be with you in about " . convertToHours($routeDriveTime);
                 $routePolyline = json_encode($driveRoute->routes->features[0]->geometry->paths);
-                
+
             }
 
 
-            $returnData = '{ "routeLength" : "' . $routeLength . 
+            $returnData = '{ "routeLength" : "' . $routeLength .
                           '", "routeWalkTime" :"' . $routeWalkTime .
-                          '", "routeDriveTime" : "' .  $routeDriveTime . 
-                          '", "routePolyline" : "' . $routePolyline . 
+                          '", "routeDriveTime" : "' .  $routeDriveTime .
+                          '", "routePolyline" : "' . $routePolyline .
                           '"}';
 
             // TWILIO CODE --------------
             // Send text message to your friend
             if ($messageText != "" && intval($routeLength) != 0) {
-                
+
                 $sid =  $twilioSid; // Your Account SID from www.twilio.com/user/account
                 $token = $twilioToken; // Your Auth Token from www.twilio.com/user/account
                 $client = new Services_Twilio($sid, $token);
@@ -127,10 +126,10 @@
                 );
             }
         }
-        
+
         return $returnData;
     }
 
-    echo getData(); 
-       
+    echo getData();
+
 ?>
